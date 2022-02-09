@@ -20,7 +20,7 @@
     ];
     const WEEKS = 16;
     // 开学第一周的星期一
-    const FIRST_SCHOOL_DAY = new Date('2020-02-21');
+    const FIRST_SCHOOL_DAY = new Date('2022-02-21');
 
     const ONE_DAY = 24 * 60 * 60 * 1000;
     const lastOf = (iterable) => iterable[iterable.length - 1];
@@ -175,6 +175,7 @@ END:VTIMEZONE`
             if (!lesson) return;
             const WEEKDAYS = ['MO', 'TU', 'WE', 'TH', 'FR'];
             const { name, place, teacher, coClass, weeks, weekSpec, raw } = lesson;
+            const lessonWeeks = weeks[1] - weeks[0] + 1;
             icsData += `
 BEGIN:VEVENT
 DTSTART;TZID=Asia/Shanghai:${getSessionBeginTime(weekday, session, weekSpec === 'even', weeks[0])}
@@ -184,7 +185,8 @@ UID:${id()}@clansty.com
 SUMMARY:${name}
 DESCRIPTION:${teacher}\\n${coClass}\\n\\n${raw}
 LOCATION:${place}
-RRULE:FREQ=WEEKLY;WKST=MO;INTERVAL=${weekSpec === 'all' ? 1 : 2};BYDAY=${WEEKDAYS[weekday]};COUNT=${weeks[1] - weeks[0] + 1}
+RRULE:FREQ=WEEKLY;WKST=MO;INTERVAL=${weekSpec === 'all' ? 1 : 2};BYDAY=${WEEKDAYS[weekday]
+                };COUNT=${Math.floor(weekSpec === 'all' ? lessonWeeks : lessonWeeks / 2)}
 END:VEVENT`
         }
 
