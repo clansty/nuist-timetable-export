@@ -20,7 +20,7 @@
     ];
     const WEEKS = 16;
     // 开学第一周的星期一
-    const FIRST_SCHOOL_DAY = new Date('2022-02-21');
+    const FIRST_SCHOOL_DAY = new Date('2022-08-29');
 
     const ONE_DAY = 24 * 60 * 60 * 1000;
     const lastOf = (iterable) => iterable[iterable.length - 1];
